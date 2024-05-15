@@ -1,0 +1,89 @@
+setup_linear_model:
+  description: |
+    This function returns an affine dynamic model.
+    The dynamic equation is: x_dot = A * x + B * u;  y = C * x + D * u. 
+    This model is especially useful when the system is or can be approximated by affine dynamics.
+  example_usage: |
+    """
+    x0 = np.zeros((4,1)) # [x, x_dot, theta, theta_dot]
+    u0 = np.zeros((1,1)) # [force]
+    m_1 = 0.01
+    m_2 = 2
+    l = 0.1
+    g = 0.81
+    A = np.array([[0,1,0,0], [0,0,m*g,0],[0,0,0,1],[0,0,0,l]]) # This is an example dynamics. Implement the linear dynamics of your system here.
+    B = np.array([[0],[1/(m_1+m_2)],[0],[-1/m]]) # Please be careful about the signs and values when linearizing a non-linear system.
+    C = np.eye(4)
+    D = np.zeros((4, 1))
+    model = setup_linear_model(x0, u0, A, B, C, D)
+    """
+  args:
+    - name: x0
+      type: numpy.ndarray
+      size: (n_x, 1)
+      description: Initial state
+    - name: u0
+      type: numpy.ndarray
+      size: (n_u, 1)
+      description: Initial input
+    - name: A
+      type: numpy.ndarray
+      size: (n_x, n_x)
+      description: State matrix
+    - name: B
+      type: numpy.ndarray
+      size: (n_x, n_u)
+      description: Input matrix
+    - name: C
+      type: numpy.ndarray
+      size: (n_y, n_x)
+      description: Output matrix
+    - name: D
+      type: numpy.ndarray
+      size: (n_y, n_u)
+      description: Feedforward matrix
+
+setup_arm_model:
+  description: |
+    This function returns a model of the robot arm.
+    This model is especially useful when the controller only needs to consider the robot arm.
+    Because this function will be called in skill's init function, arm type is directly available 
+    as arm_type.
+  example_usage: |
+    """
+    model = setup_arm_model(arm_type)
+    """
+  args:
+    - name: arm_type
+      type: str
+      description: The robot arm type. It should be consistent as the skill's.
+
+setup_arm_with_objects_model:
+  description: |
+    This function returns a model of the robot arm and static objects in the scene.
+    This model is especially useful when the controller needs to consider the interaction between 
+    the robot and objects, such as grasping and collision avoidance. 
+    It can be used for controlling in the cartesian space or in the joint space.
+    Because this function will be called in skill's init function, arm type and object_info
+    are directly available as arm_type and object_info.
+    Note that this function can not predict movement of non-static or non-rigid objects.
+  example_usage: |
+    """
+    model = setup_arm_with_objects_model(arm_type, object_info)
+    """
+  args:
+    - name: arm_type
+      type: str
+      description: The robot arm type. It should be consistent as the skill's.
+    - name: object_info
+      type: dict
+      description: The dictionary of all objects in the scene.  It should be consistent as the skill's.
+    
+setup_placeholder_model:
+  description: |
+    This function returns None.
+    This model is especially useful when the controller does not need any dynamic model.
+  example_usage: |
+    """
+    model = setup_placeholder_model()
+    """

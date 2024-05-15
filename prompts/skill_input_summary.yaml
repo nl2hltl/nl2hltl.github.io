@@ -1,0 +1,39 @@
+- port_name: controller_parameters
+  description: Controller parameters that can be adjusted dynamically during running.
+  type: AbstractValue
+  data_structure: dict
+
+- port_name: measured_arm_position
+  description: Observation of the robot arm's joint position.
+  type: BasicVector
+  dimensions: num_q
+
+- port_name: measured_arm_velocity
+  description: Observation of the robot arm's joint velocity.
+  type: BasicVector
+  dimensions: num_q
+
+- port_name: measured_ee_pose
+  description: Observation of the end effector's pose. The first three elements correspond to rotation. The last three elements correspond to translation.
+  type: BasicVector
+  dimensions: 6
+
+- port_name: measured_ee_twist
+  description: Observation of the end effector's twist. The first three elements correspond to rotation. The last three elements correspond to translation.
+  type: BasicVector
+  dimensions: 6
+
+- port_name: measured_joint_states
+  description: Observation of the joint states (including joint states of articulated objects).
+  type: AbstractValue
+  data_structure: dict
+
+- port_name: measured_body_poses
+  description: Observation of the poses of the rigid bodies in the scene.
+  type: AbstractValue
+  data_structure: dict
+
+- port_name: measured_body_velocities
+  description: Observation of the velocities of the rigid bodies in the scene.
+  type: AbstractValue
+  data_structure: dict
