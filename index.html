@@ -140,8 +140,7 @@
             <img src="media/figures/teaser.png" class="interpolation-image" style="width: 99%; height: auto;"/>
         </div>
         <h2 class="subtitle has-text-centered">
-            Open world robot tasks have <b>inherently different and even opposite requirements</b> that can be difficult to satisfy holistically with fixed state-action representations and fixed control strategies. 
-            To address this problem, <span class="dperact">Meta-Control</span> leverages hierarchical formulation and LLMs, enabling automatic control synthesis by automatically customizing the most appropriate state action representations, dynamic models, and controllers.
+            Opening the door, moving safely, and balancing are heterogeneous skills and have conflicting requirements that can be difficult to satisfy with a fixed control strategy and fixed state-action representation. Meta-Control addresses the challenge with a composable hierarchical control formulation and LLM, enabling automatic model-based control synthesis. The synthesized skill has customized state action representations, dynamic models, and controllers that perfectly align with the objectives and requirements.
         </br>        
         </br>
                 <b>All videos are in real time</b>.
@@ -245,18 +244,9 @@
                 <h2 class="title is-3">Abstract</h2>
                 <div class="content has-text-justified">
                     <p>
-                        The requirements for real-world manipulation tasks are diverse and often conflicting; 
-                        some tasks necessitate force constraints or collision avoidance, while others demand high-frequency feedback. 
-                        Satisfying these varied requirements with a fixed state-action representation and control strategy is challenging, 
-                        impeding the development of a universal robotic foundation model. 
-                        In this work, we propose <i>Meta-Control</i>, 
-                        the first LLM-enabled automatic control synthesis approach that creates customized state representations and control strategies tailored to specific tasks. 
-                        <i>Meta-Control</i> leverages a generic hierarchical control framework to address a wide range of heterogeneous tasks. 
-                        Our core insight is the decomposition of the state space into an abstract task space and a concrete tracking space. 
-                        By harnessing LLM's extensive common sense and control knowledge, the LLM designs these spaces, including states, dynamic models, and controllers, using pre-defined but abstract templates. 
-                        <i>Meta-Control</i> stands out for its fully model-based nature, allowing for rigorous analysis, efficient parameter tuning, and reliable execution. 
-                        It not only utilizes decades of control expertise encapsulated within LLMs to facilitate heterogeneous control but also ensures formal guarantees such as safety and stability. 
-                        Our method is validated both in real-world scenarios and simulations across diverse tasks with conflicting requirements, such as collision avoidance versus convergence and compliance versus high precision.
+                        The requirements for real-world manipulation tasks are diverse and often conflicting; some tasks require precise motion while others require force compliance; some tasks require avoidance of certain regions while others require convergence to certain states. Satisfying these varied requirements with a fixed state-action representation and control strategy is challenging, impeding the development of a universal robotic foundation model. In this work, we propose Meta-Control, the first LLM-enabled automatic control synthesis approach that creates customized state representations and control strategies tailored to specific tasks. 
+                        Our core insight is that <i>a meta-control system can be built to automate the thought process that human experts use to design control systems</i>. Specifically, human experts heavily use a model-based, hierarchical (from abstract to concrete) thought model, then compose various dynamic models and controllers together to form a control system. Meta-Control mimics the thought model and harness LLM's extensive control knowledge with Socrates' ``art of midwifery" to automate the thought process.
+                        Meta-Control stands out for its fully model-based nature, allowing rigorous analysis, generalizability, robustness, efficient parameter tuning, and reliable real-time execution. 
                     </p>
                 </div>
             </div>
@@ -799,9 +789,7 @@ All videos are in <b>real time</b>.
                 </br>
             </br>
             <p class="content has-text-justified">
-                Overview of Meta-Control. The skill description is given by the user. Other prompts are automatically generated based on the system setup and code base. The composer generates task model, task controller, tracking model and tracking controller based on the prompts, then evaluate the synthesized controllers and revise them based on execution results.
-
-                Meta-Control leverages hiearchical control formulation and large language models to zero-shot synthesize the most approriate representations and control systems for robot tasks of different nature.
+                Overview of Meta-Control. Meta-Control harness LLM's control knowledge to synthesize skills with a 3-level pipeline: strategy level, data flow level, and parameter level. The user only needs to provide the skill description. Meta-Control first designs the system with dynamic model and controller templates, then connects all modules by correctly understanding the semantic meaning of the interfaces, and finally evaluates the synthesized control system and optimizes the parameters based on execution results through few-shot interactions. 
             </p>
             
         </br>
@@ -893,7 +881,7 @@ All videos are in <b>real time</b>.
     <div class="container is-max-widescreen">
         <div class="rows">
             <h2 class="title is-3"></h2>
-            <h2 class="title is-3">Model-Based Control Enables Formal Analysis</h2>
+            <h2 class="title is-3">Rigorous Formal Analysis</h2>
             <p class="content has-text-justified">
                 Meta-Control synthesized controller is fully model-based. 
                 Therefore, we can give rigourous analysis and guarantees for the synthesized control system.
