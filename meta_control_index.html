@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="description"
-    content="Scaling Up Natural Language Understanding for Multi-Robots Through the Lens of Hierarchy">
-    <meta name="keywords" content="Natural Language, Formal Method, Multi-Robots">
+    content="Meta-Control: Automatic Model-based Control System Synthesis for Heterogeneous Robot Skills">
+    <meta name="keywords" content="Robotic Manipulation, Language Models">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Scaling Up Natural Language Understanding for Multi-Robots Through the Lens of Hierarchy</title>
+    <title>Meta-Control   </title>
     
     <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-FV4ZJ9PVSV"></script>   -->
     <script>
@@ -54,13 +54,10 @@
             <div class="container is-fullhd">
                 <div class="columns is-centered">
                     <div class="column has-text-centered">
-                        <h1 class="title is-1 publication-title">Scaling Up Natural Language Understanding for Multi-Robots Through the Lens of Hierarchy</h1>
+                        <h1 class="title is-1 publication-title">Meta-Control: Automatic Model-based <br> Control System Synthesis for Heterogeneous Robot Skills</h1>
                         <!-- <h3 class="title is-4 conference-authors"><a target="_blank" href="https://www.corl2023.org/">CoRL 2023 (Oral)</a></h3> -->
                         <div class="is-size-5 publication-authors">
                             <span class="author-block">
-                                <a target="_blank" href="">Anonymous Authors</a>
-                            </span>
-                            <!-- <span class="author-block">
                                 <a target="_blank" href="https://scholar.google.com/citations?user=V22j1C0AAAAJ&hl=zh-CN&oi=sra/">Tianhao Wei</a><sup>*,1</sup>,
                             </span>
                             <span class="author-block">
@@ -74,25 +71,25 @@
                             </span>
                             <span class="author-block">
                                 <a target="_blank" href="https://www.cs.cmu.edu/~cliu6/">Changliu Liu</a><sup>1</sup>,
-                            </span> -->
+                            </span>
                         </div>
                         
-                        <!-- <div class="is-size-5 publication-authors">
+                        <div class="is-size-5 publication-authors">
                             <span class="author-block"><sup>*</sup>Equal Contribution,</span>
                             <span class="author-block"><sup>1</sup>Carnegie Mellon University,</span>
                             <span class="author-block"><sup>2</sup>Tsinghua University</span> <br>
-                        </div> -->
+                        </div>
                         
                         <div class="column has-text-centered">
                             <div class="publication-links">
                                 <!-- PDF Link. -->
                                 <span class="link-block">
-                                    <a target="_blank" href="xxx.pdf"
+                                    <a target="_blank" href="Meta_Control.pdf"
                                     class="external-link button is-normal is-rounded is-dark">
                                     <span class="icon">
                                         <i class="fas fa-file-pdf"></i>
                                     </span>
-                                    <span>Paper (Coming soon)</span>
+                                    <span>Paper</span>
                                 </a>
                             </span>
                             
@@ -108,15 +105,15 @@
                         </span> -->
                         
                         <!-- Video Link. -->
-                        <!-- <span class="link-block">
-                            <a target="_blank" href="https://youtu.be/Yvn4eR05A3M"
+                        <span class="link-block">
+                            <a target="_blank" href="https://www.youtube.com/watch?v=YKKbGnWYKsg"
                             class="external-link button is-normal is-rounded is-dark">
                             <span class="icon">
                                 <i class="fab fa-youtube"></i>
                             </span>
                             <span>Video</span>
                         </a>
-                    </span> -->
+                    </span>
                     
                     <!-- Code Link. -->
                     <span class="link-block">
@@ -138,7 +135,18 @@
 
 
 <div class="container is-max-widescreen">
-    <div class="hero-body">
+
+    <div class="container is-max-widescreen">
+        <div class="rows">
+            <!-- <h2 class="title is-3">Video</h2> -->
+            <div class="publication-video">
+                <iframe src="https://www.youtube.com/embed/YKKbGnWYKsg?si=zbSfbR-ksQriVmUa"
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <!-- <div class="hero-body">
         <div class="columns is-vcentered  is-centered">
             <img src="media/figures/teaser.png" class="interpolation-image" style="width: 99%; height: auto;"/>
         </div>
@@ -149,8 +157,20 @@
                 <b>All videos are in real time</b>.
             </h2>
         
+    </div> -->
+    
     </div>
+
+    
+<div class="container is-max-widescreen">
+    
+    <div class="hero-body">
+        <h2 class="subtitle has-text-centered">
+            <b>All videos are in real time</b>.
+        </br>        
     </div>
+    
+</div>
 
 <section class="hero is-light is-small">
     <div class="hero-body">
@@ -247,21 +267,9 @@
                 <h2 class="title is-3">Abstract</h2>
                 <div class="content has-text-justified">
                     <p>
-                        Long-horizon planning in robotics is often hindered by challenges such as uncertainty accumulation, computational complexity, delayed rewards and incomplete information. 
-                        This work proposes an innovative approach to exploit the inherent task hierarchy from human instructions to facilitate multi-robot planning. 
-                        Using Large Language Models (LLMs), we propose a two-step approach to translate multi-sentence human instructions into a structured language, 
-                        Hierarchical Linear Temporal Logic (LTL), which serves as an intermediary formal representation for planning.
-                        Initially, LLMs transform the human instructions into a Hierarchical Task Network-like representation, defined as Hierarchical Task Tree, 
-                        capturing the logical and temporal relations among tasks.
-                        Following this, a domain-specific fine-tuning of LLM translates sub-tasks of each task into flat LTL formulas, 
-                        aggregating them to form hierarchical LTL specifications. 
-                        These specifications are then leveraged for planning using off-the-shelf planners.
-                        Our framework not only bridges the gap between human instructions and algorithmic planning 
-                        but also showcases the potential of LLMs in harnessing human-like hierarchical reasoning to automate 
-                        complex task planning for multiple robots. Through evaluations in both simulation and real-world 
-                        experiments involving human participants, we demonstrate that our method can handle more complex human 
-                        instructions compared to existing methods. The results indicate that our approach achieves higher success 
-                        rates and lower costs in multi-robot task allocation and plan generation.
+                        The requirements for real-world manipulation tasks are diverse and often conflicting; some tasks require precise motion while others require force compliance; some tasks require avoidance of certain regions while others require convergence to certain states. Satisfying these varied requirements with a fixed state-action representation and control strategy is challenging, impeding the development of a universal robotic foundation model. In this work, we propose Meta-Control, the first LLM-enabled automatic control synthesis approach that creates customized state representations and control strategies tailored to specific tasks. 
+                        Our core insight is that <i>a meta-control system can be built to automate the thought process that human experts use to design control systems</i>. Specifically, human experts heavily use a model-based, hierarchical (from abstract to concrete) thought model, then compose various dynamic models and controllers together to form a control system. Meta-Control mimics the thought model and harness LLM's extensive control knowledge with Socrates' "art of midwifery" to automate the thought process.
+                        Meta-Control stands out for its fully model-based nature, allowing rigorous analysis, generalizability, robustness, efficient parameter tuning, and reliable real-time execution. 
                     </p>
                 </div>
             </div>
@@ -274,21 +282,10 @@
     <br>
     <br>
     
-    <!-- <div class="container is-max-widescreen">
-        
-        <div class="rows">
-            <h2 class="title is-3">Video</h2>
-            <div class="publication-video">
-                <iframe src="https://www.youtube.com/embed/Yvn4eR05A3M"
-                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div> -->
-    
 </section>
 
 
-<!--
+
 <section class="section">
     <div class="container is-max-widescreen">
         
@@ -316,11 +313,11 @@
                         width="99%">
                         <source src="media/videos/wipe_trajectory.mp4" 
                         type="video/mp4">
-                    </video>
-                    <p style="text-align:center">
-                        <font color="red">Failure: </font>Wipe the whiteboard with a Cartesian trajectory planner. Failed because force constraints can not be specified.
-                    </p>
-                </div>
+                        </video>
+                        <p style="text-align:center">
+                            <font color="red">Failure: </font>Wipe the whiteboard with a Cartesian trajectory planner. Failed because force constraints can not be specified.
+                        </p>
+                    </div>
                 
                 <div class="column has-text-centered">
                     <video id="dist2"
@@ -402,6 +399,7 @@
 </p>
 </div>
 </div>
+
 
 <!-- <h2 class="subtitle has-text-centered">
 </br>
@@ -786,35 +784,6 @@ All videos are in <b>real time</b>.
 
 <section class="section">
     <div class="container is-max-widescreen">
-        
-        <div class="rows">
-            
-            
-            <!-- Animation. -->
-            <div class="rows is-centered ">
-                <div class="row is-full-width">
-                    <h2 class="title is-3"><span class="dperact">Meta-Control</span> Method</h2>
-                    
-                    <!-- Interpolating. -->
-                    <div class="content has-text-justified">
-                        <!-- <br> -->
-                    </div>
-                    <img src="media/figures/hierarchical-synthesis.png" class="interpolation-image" />
-                </br>
-            </br>
-            <p class="content has-text-justified">
-                Overview of Meta-Control. Meta-Control harness LLM's control knowledge to synthesize skills with a 3-level pipeline: strategy level, data flow level, and parameter level. The user only needs to provide the skill description. Meta-Control first designs the system with dynamic model and controller templates, then connects all modules by correctly understanding the semantic meaning of the interfaces, and finally evaluates the synthesized control system and optimizes the parameters based on execution results through few-shot interactions. 
-            </p>
-            
-        </br>
-    <!--/ Re-rendering. -->
-</div>
-</div>
-</section>
-
-
-<!-- <section class="section">
-    <div class="container is-max-widescreen">
         <div class="rows">
             <h2 class="title is-3"></h2>
             <h2 class="title is-3">Exploiting Dynamical Priors Internalized by LLM</h2>
@@ -864,10 +833,10 @@ All videos are in <b>real time</b>.
             </p>
         </div>
     </div>
-</section> -->
+</section>
 
 
-<!-- <section class="section">
+<section class="section">
     <div class="container is-max-widescreen">
         <div class="rows">
             <h2 class="title is-3"></h2>
@@ -878,19 +847,20 @@ All videos are in <b>real time</b>.
                 Before parameter tuning, the model fails to balance the pole. But with only <b>two rounds of execution</b>, 
                 Meta-Control finds the proper parameter that successfully balance the pole.
             </p>
+            <!-- <br> -->
             <div class="columns">
                 <div class="column has-text-centered">
                     <img src="media/figures/lqr_profile_no_tune.png"/>
                 </div>
                 <div class="column has-text-centered">
-                    <img src="media/figures/lqr_profile.png"/>
+                    <img src="media/figures/lqr_profile.png"/><!-- class="interpolation-image" style="width: 45%; height: auto;"/>-->
                 </div>
             </div>
         </div>
     </div>
-</section> -->
+</section>
 
-<!-- <section class="section">
+<section class="section">
     <div class="container is-max-widescreen">
         <div class="rows">
             <h2 class="title is-3"></h2>
@@ -914,11 +884,39 @@ All videos are in <b>real time</b>.
             </p>
         </div>
     </div>
-</section> -->
+</section>
 
 
+<section class="section">
+    <div class="container is-max-widescreen">
+        
+        <div class="rows">
+            
+            
+            <!-- Animation. -->
+            <div class="rows is-centered ">
+                <div class="row is-full-width">
+                    <h2 class="title is-3">Meta-Control Pipeline</h2>
+                    
+                    <!-- Interpolating. -->
+                    <div class="content has-text-justified">
+                        <!-- <br> -->
+                    </div>
+                    <img src="media/figures/hierarchical-synthesis.png" class="interpolation-image" />
+                </br>
+            </br>
+            <p class="content has-text-justified">
+                Overview of Meta-Control pipeline. Meta-Control harness LLM's control knowledge to synthesize skills with a 3-level pipeline: strategy level, data flow level, and parameter level. The user only needs to provide the skill description. Meta-Control first designs the system with dynamic model and controller templates, then connects all modules by correctly understanding the semantic meaning of the interfaces, and finally evaluates the synthesized control system and optimizes the parameters based on execution results through few-shot interactions. 
+            </p>
+            
+        </br>
+    <!--/ Re-rendering. -->
+</div>
+</div>
+</section>
 
-<!-- <section class="section">
+
+<section class="section">
     <div class="container is-max-widescreen">
         <div class="row">
             <h2 class="title is-3">
@@ -957,10 +955,10 @@ All videos are in <b>real time</b>.
             </p>
         </div>
     </div>
-</section> -->
+</section>
 
 
-<!-- <section class="section" id="BibTeX">
+<section class="section" id="BibTeX">
     <div class="container is-max-widescreen content">
         <h2 class="title">BibTeX</h2>
         <pre><code>@article{wei2024meta,
@@ -970,7 +968,7 @@ All videos are in <b>real time</b>.
             year={2024}
         }</code></pre>
     </div>
-</section> -->
+</section>
 
 
 <footer class="footer">
