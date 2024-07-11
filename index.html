@@ -241,16 +241,21 @@
                 <h2 class="title is-3">AI2-THOR experiments</h2>
                 <p class="content has-text-justified">
                     <span>
-                        To evaluate our method on tasks with more complex temporal requirements, we procedurally combine several base tasks (the number of them vary from 1-4) in the The ALFRED dataset from the same floor plan and object configuration to generate <em>derivative</em> tasks.
+                        To evaluate our method on tasks with more complex temporal requirements, we combine several base tasks in the The ALFRED dataset to generate <em>derivative</em> tasks (each derivative task can be composed with up to 4 base tasks).
 
                     </span>
                     </br>
                     </br>
                     <span>
+                        We compare our method with <a href="https://arxiv.org/abs/2309.10062">SMART-LLM</a>. SMART-LLM uses LLMs to generate Python scripts that invoke predefined APIs for the purposes of task decomposition and task allocation. 
+                    </span>    
+                    </br>
+                    </br> 
+                    <span>
                         The metrics are as follows: 
                         <ol>
                             <li>
-                                <strong>Success rate</strong>, which measures whether the target goal states of objects are achieved and if the order in which these states occur satisfies the specified temporal requirements. Additionally, to provide a detailed analysis of the success rate, we further break it down into two separate components: a) conversion, b) planning. 
+                                <strong>Success rate</strong>, which measures whether the target goal states of objects are achieved and if the order in which these states occur satisfies the specified temporal requirements.
                             </li>
                             <li>
                                 <strong>Travel cost</strong>, measured in meters, is defined as the total distance traveled by all robots, excluding any costs related to manipulation. 
@@ -286,8 +291,9 @@
 
                 </div>
                 <!-- <h2 class="title is-5">Meta-Control finds the most approriate representations and control strategies for heterogeneous robot skills</h2> -->
+
                 <span>
-                    We compare our method with <a href="https://arxiv.org/abs/2309.10062">SMART-LLM</a>. SMART-LLM uses LLMs to generate Python scripts that invoke predefined APIs for the purposes of task decomposition and task allocation. This approach primarily seeks to identify a feasible solution without focusing on optimizing costs.  
+                    For derivatives tasks with 1 base task, our methods can effectively choose the shortest path while avoiding the repeating actions when executing sub-tasks, compared with the SMART-LLM which primarily seeks to identify a feasible solution without focusing on optimizing costs.
                 </span>
                 </br>
                 </br>
@@ -297,7 +303,7 @@
                             <source src="media/videos/web-video-aithor-1task-3.mp4" type="video/mp4">
                         </video>
                         <p style="text-align:center">
-                            <font color="green">Long task: 4 base tasks with 1 robot in dinning room</font>
+                            <font color="green">4 base tasks with 1 robot in dinning room</font>
                         </p>
                     </div>
 
@@ -306,7 +312,7 @@
                             <source src="media/videos/web-video-aithor-4task-2.mp4" type="video/mp4">
                         </video>
                         <p style="text-align:center">
-                            <font color="green">Long task: 4 base tasks with 4 robots in dinning room</font>
+                            <font color="green">4 base tasks with 4 robots in dinning room</font>
                         </p>
                     </div>
 
@@ -315,12 +321,12 @@
                             <source src="media/videos/web-video-aithor-4task-3.mp4" type="video/mp4">
                         </video>
                         <p style="text-align:center">
-                            <font color="green">Long task: 4 base tasks with 4 robots in bedroom</font>
+                            <font color="green">4 base tasks with 4 robots in bedroom</font>
                         </p>
                     </div>
                 </div>
                 <span>
-                    We compare our method with SMART-LLM. SMART-LLM uses LLMs to generate Python scripts that invoke predefined APIs for the purposes of task decomposition and task allocation. This approach primarily seeks to identify a feasible solution without focusing on optimizing costs.  
+                    For derivative tasks with 4 base tasks, SMART-LLM failed to generate a feasible plan, as its prompt scripts always exceed the maximum content length the LLM accepts when the task content gradually becomes longer and more complex. However, as the HTT structure decomposes long tasks into tree-like dependencies, our method can effectively handle long tasks composed of multiple basic tasks, extract the temporal logic relationships, and provide planning. Here we demonstrated the planning of 4 robots under derivative tasks with 4 base tasks in two different environments.
                 </span>
             </div>
         </div>
@@ -335,20 +341,27 @@
                 <h2 class="title is-3">Real-world experiments</h2>
                 <p class="content has-text-justified">
                     <span>
-                        In real-world experiments, we arrange fruits and vegetables on a tabletop using a robotic arm. 
-
-                        Our real-world experiments are conducted in a tabletop setting, where the task involves a robotic arm placing fruits and vegetables onto colored plates. Given the primarily 2D nature of the task, we convert the tabletop environment into a discrete grid world, which the planner~\cite{luo2024simultaneous} uses. The use of only one robotic arm simplifies the task compared to the multi-robot scenarios in the simulator, as it eliminates the need for task allocation. 
-
-
-                        Our evaluation focuses on two main aspects: a) the adaptability to different verbal tones and styles from various users; and b) the comparative effectiveness of our plan solution against existing methods. To explore the first aspect, we conduct a user study with 4 participants, asking each to rephrase the task instructions according to their personal style, while maintaining the original semantics. For the second aspect, we use an LLM as the task planner, which directly generates the sequence of API calls, akin to ProgPrompt \cite{singh2023progprompt}. The prompt includes the initial 2D coordinates of all objects along with the robotic arm.  The template used for the prompts is outlined in Fig.~\ref{fig:Prompt_for_LLMs} in Appendix~\ref{app:real-world-exp}.
-                        
-                        
-                        
-                        We have developed a dataset containing human instructions for eight arrangement tasks, each specified with temporal constraints. To address the probabilistic behavior of LLMs, we conducted 5 queries to the LLMs for each rephrased instruction provided by users for every task, resulting in a total of 25 test cases per task. In each scenario, object locations are randomized. The cost metric used is the projected travel distance of the robotic arm within a 2D space. Examples of these rephrased instructions are shown in Tab.~\ref{tab:real-world-rephrase} in Appendix~\ref{app:real-world-exp}.
-                        
-                        The results are presented in Tab.~\ref{tab:tableset}. As observed, both our approach and the LLM achieve a high success rate, which aligns with the expectations given the task complexities. This confirms that our method is capable of adapting to various user instructions. Regarding cost, for the first four tasks that require sequential actions, the costs are identical. For the latter four tasks, which allow for multiple feasible solutions, our method consistently produces lower-cost paths, with the exception of task 5. In this simple task, the LLM also manages to create an optimal plan based on the placement of fruits. A list of snapshots between our approach and LLMs for task 6 is displayed in Fig.~\ref{fig:real-world-setup}.
-                        
+                        Our real-world experiments are conducted in a tabletop setting, where the task involves a robotic arm placing fruits and vegetables onto colored plates. 
                     </span>
+                    </br>
+                    </br>
+                    <span>
+                        Given the primarily 2D nature of the task, we convert the tabletop environment into a discrete grid world. The use of only one robotic arm simplifies the task compared to the multi-robot scenarios in the simulator, as it eliminates the need for task allocation. 
+
+                    </span>
+                    </br>
+                    <span>
+                        <ol>
+                            Our evaluation focuses on two main aspects: 
+                            <li>
+                                the adaptability to different verbal tones and styles from various users;
+                            </li>
+                            <li>the comparative effectiveness of our plan solution against existing methods.
+
+                            </li>
+                        </ol>
+                    </span>
+                    
                     </br>
                     </br>
                 <div class="columns">
@@ -356,41 +369,60 @@
                         <video id="dist1" controls muted autoplay loop width="99%">
                             <source src="media/videos/web-video-realworld-1.mp4" type="video/mp4">
                         </video>
-                        <p style="text-align:center">
+                        <!-- <p style="text-align:center">
                             <font color="red">Failure: </font>Wipe the whiteboard with a Cartesian trajectory planner.
                             Failed because force constraints can not be specified.
-                        </p>
+                        </p> -->
                     </div>
 
                     <div class="column has-text-centered">
                         <video id="dist2" controls muted autoplay loop width="99%">
                             <source src="media/videos/web-video-realworld-2.mp4" type="video/mp4">
                         </video>
-                        <p style="text-align:center">
+                        <!-- <p style="text-align:center">
                             <font color="red">Failure: </font>Open the cabinet with a joint space planner. Failed
                             because planned swing path is not accurate.
-                        </p>
+                        </p> -->
                     </div>
 
                     <div class="column has-text-centered">
                         <video id="dist2" controls muted autoplay width="99%">
                             <source src="media/videos/web-video-realworld-3.mp4" type="video/mp4">
                         </video>
-                        <p style="text-align:center">
+                        <!-- <p style="text-align:center">
                             <font color="red">Failure: </font>Balance a cart pole with a MPC. Failed because the
                             feedback frequency is too low.
-                        </p>
+                        </p> -->
                     </div>
                 </div>
                 <!-- <h2 class="title is-5">Meta-Control finds the most approriate representations and control strategies for heterogeneous robot skills</h2> -->
-                <span>
-                    A comparative overview of snapshots between our approach and LLMs for task 6. Our method gives an optimal plan based on the positions of the fruits, whereas LLMs basically follow the sequence in which the fruits are mentioned in the instructions.                </span>
 
                 <div class="columns">
                     <div class="column has-text-centered" >
                         <img src="media/figures/our_real_world.png" class="interpolation-image" style="width: 75%; height: auto;"/>
                     </div>
                 </div>
+                <span>
+                    The figure above is a comparative overview of snapshots between our approach and LLMs for task <em>"Place the green apple in the pink plate, the orange in the yellow plate and the red apple in the blue plate. The order of placement is not specified and can be chosen freely"</em>. 
+                </span>
+                </p>
+                </br>
+                <span>
+                    Our method gives an optimal plan based on the positions of the fruits, whereas LLMs basically follow the sequence in which the fruits are mentioned in the instructions.                
+                </span>
+
+                </br>
+
+                </br>
+                <div class="columns">
+                    <div class="column has-text-centered" >
+                        <img src="media/figures/table.jpg" class="interpolation-image" style="width: 75%; height: auto;"/>
+                    </div>
+                </div>                  
+                <span>
+                    As observed, both our approach and the LLM achieve a high success rate, which aligns with the expectations given the task complexities. This confirms that our method is capable of adapting to various user instructions. Regarding cost, for the first four tasks that require sequential actions, the costs are identical. For the latter four tasks, which allow for multiple feasible solutions, our method consistently produces lower-cost paths, with the exception of task 5. In this simple task, the LLM also manages to create an optimal plan based on the placement of fruits.
+
+                </span>
             </div>
         </div>
         </div>
