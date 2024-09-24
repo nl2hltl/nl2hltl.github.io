@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{subfigure}
+\usepackage{float} 
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{white},
+    stringstyle=\color{blue},
+    keywordstyle=\color{red},
+    commentstyle=\color{gray},
+    morestring=[b]",
+    morestring=[d]',
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morecomment=[l]{\#},
+    morekeywords={null,false,true}
+}
+\begin{document}
+
+\section*{Nature language to LTL formula via a finetuned LLM}% \tcblower
+    \textbf{Natural language description:}
+    
+    \texttt{Task\_1.1} and \texttt{Task\_1.2} can be done in any order, \texttt{Task\_1.1} and \texttt{Task\_1.2} must be completed before \texttt{Task\_1.3}, \texttt{Task\_1.3} must be completed before \texttt{Task\_1.4}.
+
+\noindent\rule{16cm}{0.4pt}
+    
+    \textbf{Possible output from the translator:}
+    
+    % {\color{red}Finally ( ( \texttt{Task\_1.1} And \texttt{Task\_1.2} ) And Finally ( \texttt{Task\_1.3} And Finally \texttt{Task\_1.4} ) )}
+    Finally \texttt{Task\_1.1} And Finally \texttt{Task\_1.2} And Finally (\texttt{Task\_1.3} And Finally \texttt{Task\_1.4}) And (Not \texttt{Task\_1.3} Until \texttt{Task\_1.1}) And (Not \texttt{Task\_1.3} Until \texttt{Task\_1.2})
+    
+    
+\end{document}

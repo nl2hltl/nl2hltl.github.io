@@ -1,0 +1,53 @@
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown-light.min.css">
+  <style>
+@media (max-width: 767px) { body { padding: 15px; } }
+body { box-sizing: border-box;
+       min-width: 200px;
+       max-width: 980px;
+       margin: 0 auto;
+       padding: 45px; }
+  </style>
+  <title>Marked.js</title>
+</head>
+<body>
+  <div id="$m" class="markdown-body"></div>
+  <textarea id="$t" style="display:none">
+\begin{tcolorbox}[breakable,title=Dialog 1: Generating HTN-like representation]
+\textbf{Prompt:}
+\textit{Same as that in Fig.~\ref{fig:Prompt_for_generating_HTN}}.
+``Place items into the dishwasher. You should put plates, mugs and utensils into the lower rack in any order. After putting items to the lower rack, then put things into upper rack, first put saucers, and then put cups.''
+\tcblower
+\textbf{GPT-4:}
+Hierarchical Task Network (HTN) - Load Dishwasher
+\begin{enumerate}[label=\arabic*.]
+    \item Load dishwasher
+    \begin{enumerate}[label=\arabic{enumi}.\arabic*]
+        \item Load items into the lower rack
+        \begin{enumerate}[label=\arabic{enumi}.\arabic{enumii}.\arabic*]
+            \item Put plates into the lower rack (can be done in any sequence with 1.1.2 and 1.1.3)
+            \item Put mugs into the lower rack (can be done in any sequence with 1.1.1 and 1.1.3)
+            \item Put utensils into the lower rack (can be done in any sequence with 1.1.1 and 1.1.2)
+        \end{enumerate}
+        \item Load items into the upper rack (should be done after 1.1 is finished)
+        \begin{enumerate}[label=\arabic{enumi}.\arabic{enumii}.\arabic*]
+            \item Put saucers into the upper rack 
+            \item Put cups into the upper rack (should be done after 1.2.1)
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+{This HTN provides a hierarchical breakdown of the given task into its various sub-tasks. The tasks are broken down into sequential or parallel steps, with sequential steps being represented by the use of ``after'' and parallel steps allowing for any sequence.}
+
+\end{tcolorbox}
+
+  </textarea>
+  <script>$m.innerHTML = marked.parse($t.value);</script>
+</body>
+</html>

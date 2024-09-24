@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{subfigure}
+\usepackage{float} 
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{white},
+    stringstyle=\color{blue},
+    keywordstyle=\color{red},
+    commentstyle=\color{gray},
+    morestring=[b]",
+    morestring=[d]',
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morecomment=[l]{\#},
+    morekeywords={null,false,true}
+}
+\begin{document}
+
+\section*{Prompt for action completion}
+\textbf{Description from the leaf node in HTT for AI2THOR:} Place a rinsed spoon into the drawer
+
+\noindent\rule{16cm}{0.4pt}
+
+\textbf{Prompt:}
+API functions of the supported objects and actions are {\color{blue}(selected environment provided relevant object types by LLM)}:
+\begin{itemize}
+\item (`spatula', [`pickupable']), 
+\item (`cabinet', [`openable', `receptacle']), 
+\item (`apple', [`pickupable', `sliceable']), 
+\item (`microwave', [`openable', `toggleable', `receptacle', `movable']), 
+\item (`spoon', [`pickupable']), 
+\item (`counter', [`receptacle']), 
+\item (`drawer', [`openable', `receptacle'])
+\end{itemize}
+
+The robot can do these actions {\color{blue}(selected environment provided possible actions by LLM):}
+\begin{itemize}
+    \item \verb|find_object_by_state(object_type,[states])|,  states can be ``sliced'', ``cleaned'', ``chilled'', ``heated'', ``cracked'', ``used up'', i.e.,  \verb|find_object_by_state(pear,[sliced, cleaned])|: find a pear [sliced or cleaned]; 
+    \item \verb|move_to(object_type)|, i.e., \verb|move_to(banana)| the agent go to a place near banana; 
+    \item \verb|pickup_object(object_type)|, i.e., \verb|pickup_object(apple)| pick up an apple; 
+    \item \verb|open_object(object_type)|, i.e., \verb|open_object(book)| open book; 
+    \item \verb|place_object(object_type)|, i.e., \verb|place_object()| release object in hand; 
+    \item \verb|close_object(object_type)|, i.e., \verb|close_object(book)| close book; 
+    \item \verb|fill_object_with_liquid(object_be_filled, liquid)|, i.e., \verb|fill_object_with_liquid(cup, coffee)| fill cup with coffee; 
+    \item \verb|cook_object(object_type)|, i.e., \verb|cook_object(egg)| cook egg
+\end{itemize}
+
+For the task  \textit{``Place a rinsed spoon into the drawer''} {\color{blue} (description from HTT's leaf node)}, generate a sequence of actions with the API functions provided above. Please reply in format:
+\begin{lstlisting}[language=json]
+{
+"reasoning_and_explaination":    
+"task_sequence":['find_object_by_state(pineapple,heat)','move_to(pineapple)'](the splittd task sequence),
+}
+\end{lstlisting}
+
+\noindent\rule{16cm}{0.4pt}
+
+\textbf{Possible output from LLM:}
+\begin{lstlisting}[language=json]
+{
+"reasoning_and_explanation": "To complete the task of placing a rinsed spoon into the drawer, the robot must first locate a spoon that has been rinsed (assuming 'rinsed' is a state similar to 'cleaned'). After finding the spoon, the robot needs to move to the location of the spoon to pick it up. Once the spoon is in the robot's possession, the robot must locate a drawer, move to it, and then open the drawer to place the spoon inside. Finally, the robot should close the drawer to complete the task.",
+
+"task_sequence": [
+    "find_object_by_state(spoon, [cleaned])",
+    "move_to(spoon)",
+    "pickup_object(spoon)",
+    "find_object_by_state(drawer, [])",
+    "move_to(drawer)",
+    "open_object(drawer)",
+    "place_object()",
+    "close_object(drawer)"  
+    ]
+}
+\end{lstlisting}
+
+\end{document}

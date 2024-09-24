@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta name="generator" content="pandoc"/>
+<title></title>
+<style type="text/css">code{white-space:pre}</style>
+</head>
+<body>
+<h1 id="prompt-for-llms-to-generate-task-plan" class="unnumbered">Prompt for LLMs to generate task plan</h1>
+<p>Given a tabletop scenario with various fruits and vegetables, and colored plates, a robotic arm is tasked to arrange these items according to instructions. The initial coordinates of each fruit, vegetable, and the robotic arm are provided. Using the available information and predefined API functions like <code>pickup(object)</code> and <code>place(object, target)</code>, generate a sequence of commands to effectively arrange each item on the correct colored plate.<br/>
+API:</p>
+<pre><code>    move_to(obj) 
+    pickup(obj) 
+    move_to(plate) 
+    release_obj(plate)
+    </code></pre>
+<p><br/>
+</p>
+<p>Initial coordinates:<br/>
+apple: (1, 2)<br/>
+banana: (3, 4)<br/>
+orange: (5, 6)<br/>
+carrot: (7, 8)</p>
+<p>Task: Considering the initial coordinates, output a sequence of API calls to complete the task so that the trajectory of the robot arm has the lowest cost. Make sure that that job can be completed with the objects in the environment. Make sure the environment has all the objects and plates that are mentioned in the task. If the task is not possible, please output ‘Invalid input’. If the task can be planned, just output the sequences of API calls in the following format: Plan: 1. xxx 2.xxx</p>
+<p>Example:<br/>
+Input: Place the xxx in the aaa plate and the yyy in the bbb plate.<br/>
+Output should be like the following:</p>
+<pre><code>    Plan: 
+    1. move_to(xxx)
+    2. pickup(xxx)
+    3. move_to(aaa_plate)
+    4. release_obj(aaa_plate)
+    5. move_to(yyy)
+    6. pickup(yyy)
+    7. move_to(bbb_plate)
+    8. release_obj(bbb_plate)
+    </code></pre>
+<p>Here is the task input: Place the apple in the red plate and the banana in the yellow plate.</p>
+</body>
+</html>

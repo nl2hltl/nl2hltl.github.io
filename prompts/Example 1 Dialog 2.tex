@@ -1,0 +1,105 @@
+
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown-light.min.css">
+  <style>
+@media (max-width: 767px) { body { padding: 15px; } }
+body { box-sizing: border-box;
+       min-width: 200px;
+       max-width: 980px;
+       margin: 0 auto;
+       padding: 45px; }
+  </style>
+  <title>Marked.js</title>
+</head>
+<body>
+  <div id="$m" class="markdown-body"></div>
+  <textarea id="$t" style="display:none">
+\begin{tcolorbox}[breakable,title=Dialog 2: Generating JSON file]
+\textbf{Prompt: }{\it Same as that in Fig.~\ref{fig:Prompt_for_generating_JSON_file}.}
+\tcblower
+\textbf{GPT-4:}
+Alright, let's break down the previously mentioned HTN for loading the dishwasher into JSON format.
+
+First, I will structure the main tasks and the most prominent sub-tasks:
+
+\begin{lstlisting}[language=JSON]
+{
+   "Task_1": {
+      "task_id": "Task_1",
+      "task_instruction": "Load dishwasher with items in the specified order",
+      "task_related_description": "Place items into the dishwasher",
+      "sibling_nodes_condition": "",
+      "sub-tasks_of_this_node": ["Task_1.1", "Task_1.2"]
+   },
+   "Task_1.1": {
+      "task_id": "Task_1.1",
+      "task_instruction": "Load items into the lower rack in any order",
+      "task_related_description": "first load items into the lower rack",
+      "sibling_nodes_condition": "",
+      "sub-tasks_of_this_node": ["Task_1.1.1", "Task_1.1.2", "Task_1.1.3"]
+   },
+   "Task_1.2": {
+      "task_id": "Task_1.2",
+      "task_instruction": "After putting items to the lower rack, load items into the upper rack in the specified sequence",
+      "task_related_description": "after that load other things into the upper rack",
+      "sibling_nodes_condition": "After loading items into the lower rack",
+      "sub-tasks_of_this_node": ["Task_1.2.1", "Task_1.2.2"]
+   }
+}
+\end{lstlisting}
+
+Next, I will expand upon the sub-tasks for the lower and upper racks:
+
+\begin{lstlisting}[language=JSON]
+{
+   "Task_1.1.1": {
+      "task_id": "Task_1.1.1",
+      "task_instruction": "Put plates into the lower rack",
+      "task_related_description": "put plates into the lower rack",
+      "sibling_nodes_condition": "can be done in any sequence with Task_1.1.2 and Task_1.1.3",
+      "sub-tasks_of_this_node": []
+   },
+   The rest is omitted for brevity...
+}
+\end{lstlisting}
+  % "Task_1.1.2": {
+   %    "task_id": "Task_1.1.2",
+   %    "task_instruction": "Put mugs into the lower rack",
+   %    "task_related_description": "put mugs into the lower rack",
+   %    "sibling_nodes_condition": "can be done in any sequence with Task_1.1.1 and Task_1.1.3",
+   %    "sub-tasks_of_this_node": []
+   % },
+   % "Task_1.1.3": {
+   %    "task_id": "Task_1.1.3",
+   %    "task_instruction": "Put utensils into the lower rack",
+   %    "task_related_description": "put utensils into the lower rack",
+   %    "sibling_nodes_condition": "can be done in any sequence with Task_1.1.1 and Task_1.1.2",
+   %    "sub-tasks_of_this_node": []
+   % },
+   % "Task_1.2.1": {
+   %    "task_id": "Task_1.2.1",
+   %    "task_instruction": "Put saucers into the upper rack",
+   %    "task_related_description": "first put saucers",
+   %    "sibling_nodes_condition": "",
+   %    "sub-tasks_of_this_node": []
+   % },
+   % "Task_1.2.2": {
+   %    "task_id": "Task_1.2.2",
+   %    "task_instruction": "Put cups into the upper rack",
+   %    "task_related_description": "and then put cups",
+   %    "sibling_nodes_condition": "After putting saucers in the upper rack",
+   %    "sub-tasks_of_this_node": []
+   % }
+This format encapsulates the task structure from the given HTN into the specified JSON format. You can integrate the two code blocks for a complete JSON representation.
+\end{tcolorbox}
+
+  </textarea>
+  <script>$m.innerHTML = marked.parse($t.value);</script>
+</body>
+</html>

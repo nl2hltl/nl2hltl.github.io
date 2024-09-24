@@ -1,0 +1,70 @@
+
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown-light.min.css">
+  <style>
+@media (max-width: 767px) { body { padding: 15px; } }
+body { box-sizing: border-box;
+       min-width: 200px;
+       max-width: 980px;
+       margin: 0 auto;
+       padding: 45px; }
+  </style>
+  <title>Marked.js</title>
+</head>
+<body>
+  <div id="$m" class="markdown-body"></div>
+  <textarea id="$t" style="display:none">
+\begin{tcolorbox}[breakable,title=Dialog 3: Extracting task-wise specification between Task\_1.1 and Task\_1.2]
+\textbf{Prompt: }{\it Same as that in Fig.~\ref{fig:Prompt_for_extracting_level_wise_specification}.}
+\tcblower
+\textbf{GPT-4:}
+Alright, let's tackle this step by step.
+
+Firstly, let's define the concepts of \texttt{safe} and \texttt{co-safe}:
+
+\begin{itemize}
+    \item \textbf{Safe}: A property is ``safe'' if a violation can be observed in finite time. It pertains to something ``bad'' that must never happen. In Linear Temporal Logic (LTL), a typical operator to express safety properties is $\Box$ (always).
+
+    \item \textbf{Co-safe}: A property is ``co-safe'' if its satisfaction can be observed in finite time. It pertains to something ``good'' that must eventually happen. In LTL, a typical operator to express co-safety properties is $\Diamond$ (eventually).
+\end{itemize}
+
+Using the provided HTN:
+
+\begin{enumerate}
+    \item For \texttt{Task\_1.1}: ``first load items into the lower rack'' has no specific constraint on when it needs to occur in relation to its sibling tasks. However, it does have constraints related to its own sub-tasks (they can occur in any order).
+
+    \item For \texttt{Task\_1.2}: ``after that load other things into the upper rack'', it explicitly mentions that it should be done after \texttt{Task\_1.1}.
+\end{enumerate}
+
+Based on the above:
+\begin{itemize}
+    \item \texttt{Task\_1.1} has a co-safe property with respect to its sibling because it has to be done before \texttt{Task\_1.2}.
+    \item \texttt{Task\_1.2} has a safe property with respect to its sibling because it should not start until \texttt{Task\_1.1} is complete.
+\end{itemize}
+
+Now, summarizing using LTL:
+
+\texttt{LTL\_Description}: ``Always (\texttt{Task\_1.1} must precede \texttt{Task\_1.2}) and Eventually (\texttt{Task\_1.1} must be executed).''
+
+So, in JSON dialog box format:
+
+\begin{lstlisting}[language=JSON]
+{
+   "LTL_description": "Always (Task_1.1 must precede Task_1.2) and Eventually (Task_1.1 must be executed)."
+}
+\end{lstlisting}
+
+The LTL sentence is a combination of safe and co-safe properties, expressed in a natural language manner using the task ids.
+
+\end{tcolorbox}
+
+  </textarea>
+  <script>$m.innerHTML = marked.parse($t.value);</script>
+</body>
+</html>

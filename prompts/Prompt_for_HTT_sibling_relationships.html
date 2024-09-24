@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta name="generator" content="pandoc"/>
+<title></title>
+<style type="text/css">code{white-space:pre}</style>
+</head>
+<body>
+<h1 id="prompt-for-extracting-relationships-between-htt-sibling-tasks" class="unnumbered">Prompt for extracting relationships between HTT sibling tasks</h1>
+<p>Here is a parent task and its child tasks: the parent task is <code>Task_1</code> <em>Perform tasks</em> and child tasks are</p>
+<ul>
+<li><p><code>Task_1.1</code> <em>Place kitchen utensils</em></p></li>
+<li><p><code>Task_1.2</code> <em>Prepare apple for microwave</em></p></li>
+<li><p><code>Task_1.3</code> <em>Clean and rearrange utensils</em></p></li>
+</ul>
+<p>Completing all child tasks is equivalent to completing the parent task. Please find the temporal relations between child tasks from the task instruction:</p>
+<p><em>“First put the clean spatula in the drawer and put a pepper shaker in the kitchen cabinet in any order. After putting the spatula and the pepper shakers, rinse an apple to put it in the microwave. Finally, wash the spoon on the counter and place it on a plate.”</em></p>
+<p>Please only return the JSON format in the following format:</p>
+<pre language="json"><code>{
+    &quot;parent_task_id&quot;: &quot;Task_1&quot;,
+    &quot;child_task_condition&quot;: &quot;(Please find the temporal relationship between child tasks 
+        [&#39;Task_1.1&#39;, &#39;Task_1.2&#39;, &#39;Task_1.3&#39;]. 
+        We assume that each sub task will eventually be completed)&quot;,
+}</code></pre>
+<p>Examples of temporal relations for <code>child_task_condition</code> are:</p>
+<ul>
+<li><p>until <code>a</code> finished, <code>b</code> can be done</p></li>
+<li><p><code>a</code> and <code>b</code> and <code>c</code> can be done in any order</p></li>
+<li><p><code>a</code> and <code>b</code> can be done in any order</p></li>
+<li><p><code>a</code> must done before <code>b</code></p></li>
+<li><p>first <code>a</code>, then <code>b</code>, then <code>c</code></p></li>
+</ul>
+<p>where <code>parent_task_id</code> denotes the unique task id of the parent task, <code>child_task_condition</code> summarizes the temporal relations between subtasks (priorities and dependencies between children). Use and only use task <code>[Task_1.1]</code>, <code>[Task_1.2]</code>, <code>[Task_1.3]</code> as a substitute for task specific content. Please only return JSON for parent task <code>[Task_1]</code>. Please pay attention to its subtaks.</p>
+<p><strong>Possible output from LLM:</strong></p>
+<pre language="json"><code>{
+    &quot;parent_task_id&quot;: &quot;Task_1&quot;,
+    &quot;child_task_condition&quot;: &quot;first Task_1.1, then Task_1.2, then Task_1.3&quot;,
+}</code></pre>
+</body>
+</html>

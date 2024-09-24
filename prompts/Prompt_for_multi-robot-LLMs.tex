@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{subfigure}
+\usepackage{float} 
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{white},
+    stringstyle=\color{blue},
+    keywordstyle=\color{red},
+    commentstyle=\color{gray},
+    morestring=[b]",
+    morestring=[d]',
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morecomment=[l]{\#},
+    morekeywords={null,false,true}
+}
+\begin{document}
+
+
+
+\section*{Prompt for LLMs to generate multi-robot handover task plan}% \tcblower
+We have arms $a, b, c$ and $d$. The distance between each robotic arm is 1 meter, each robot arm has a motion radius of 0.8 meters that means each arm can only pick and place the object in the regions besides them. Each goal region can only place one object. 
+
+API: 
+\begin{verbatim}
+pick(arm_id, object_i, place_j)
+drop(arm_id, object_i, place_j)
+handover(arm_id_i, amd_id_j)
+\end{verbatim}\\
+\vspace{1em}
+
+Initial coordinates 
+% (or given by image token <img Fig. \ref{fig:multi_arm_handover-line} Fig.\ref{fig:multi_arm_handover-square}>)
+: 
+
+arm $a$ at (0, 0),
+
+arm $b$ at (0, 1), 
+
+arm $c$ at (-1, 1), 
+
+arm $d$ at (-1, 0), 
+
+block $a$ at region $E$ (0.2, 0) 
+
+block $b$ at region $F$ (0.2, 0.5), 
+
+block $c$ at region $G$ (0.2, 1).
+
+Goal region:
+
+    region $J$ at (-1.2, 0), 
+    
+    region $H$ at (-1.2, 0.5), 
+    
+    region $I$ at (-1.2, 1)
+\vspace{1em}
+
+Task: Considering the initial coordinates, output a sequence of API calls to complete the task so that the trajectory of the robot arm has the lowest cost. Make sure that that job can be completed with the objects in the environment. Make sure the environment has all the objects and plates that are mentioned in the task. If the task is not possible, please output `Invalid input'. If the task can be planned, just output the sequences of API calls in the following format: 
+Plan: 1. xxx 2.xxx 
+\vspace{1em}
+
+Here is the task input: Please place the blue block into region I, the red block into region J, the yellow block into region H. Place the red block before placing the blue block. 
+. 
+% \tcblower
+
+\end{document}

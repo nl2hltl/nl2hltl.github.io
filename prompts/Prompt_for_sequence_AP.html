@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta name="generator" content="pandoc"/>
+<title></title>
+<style type="text/css">code{white-space:pre}</style>
+</head>
+<body>
+<h1 id="prompt-for-action-completion" class="unnumbered">Prompt for action completion</h1>
+<p><strong>Description from the leaf node in HTT for AI2THOR:</strong> Place a rinsed spoon into the drawer</p>
+<hr/>
+<p><strong>Prompt:</strong> API functions of the supported objects and actions are <span>(selected environment provided relevant object types by LLM)</span>:</p>
+<ul>
+<li><p>(‘spatula’, [‘pickupable’]),</p></li>
+<li><p>(‘cabinet’, [‘openable’, ‘receptacle’]),</p></li>
+<li><p>(‘apple’, [‘pickupable’, ‘sliceable’]),</p></li>
+<li><p>(‘microwave’, [‘openable’, ‘toggleable’, ‘receptacle’, ‘movable’]),</p></li>
+<li><p>(‘spoon’, [‘pickupable’]),</p></li>
+<li><p>(‘counter’, [‘receptacle’]),</p></li>
+<li><p>(‘drawer’, [‘openable’, ‘receptacle’])</p></li>
+</ul>
+<p>The robot can do these actions <span>(selected environment provided possible actions by LLM):</span></p>
+<ul>
+<li><p><code>find_object_by_state(object_type,[states])</code>, states can be “sliced”, “cleaned”, “chilled”, “heated”, “cracked”, “used up”, i.e., <code>find_object_by_state(pear,[sliced, cleaned])</code>: find a pear [sliced or cleaned];</p></li>
+<li><p><code>move_to(object_type)</code>, i.e., <code>move_to(banana)</code> the agent go to a place near banana;</p></li>
+<li><p><code>pickup_object(object_type)</code>, i.e., <code>pickup_object(apple)</code> pick up an apple;</p></li>
+<li><p><code>open_object(object_type)</code>, i.e., <code>open_object(book)</code> open book;</p></li>
+<li><p><code>place_object(object_type)</code>, i.e., <code>place_object()</code> release object in hand;</p></li>
+<li><p><code>close_object(object_type)</code>, i.e., <code>close_object(book)</code> close book;</p></li>
+<li><p><code>fill_object_with_liquid(object_be_filled, liquid)</code>, i.e., <code>fill_object_with_liquid(cup, coffee)</code> fill cup with coffee;</p></li>
+<li><p><code>cook_object(object_type)</code>, i.e., <code>cook_object(egg)</code> cook egg</p></li>
+</ul>
+<p>For the task <em>“Place a rinsed spoon into the drawer”</em> <span> (description from HTT’s leaf node)</span>, generate a sequence of actions with the API functions provided above. Please reply in format:</p>
+<pre language="json"><code>{
+&quot;reasoning_and_explaination&quot;:    
+&quot;task_sequence&quot;:[&#39;find_object_by_state(pineapple,heat)&#39;,&#39;move_to(pineapple)&#39;](the splittd task sequence),
+}</code></pre>
+<hr/>
+<p><strong>Possible output from LLM:</strong></p>
+<pre language="json"><code>{
+&quot;reasoning_and_explanation&quot;: &quot;To complete the task of placing a rinsed spoon into the drawer, the robot must first locate a spoon that has been rinsed (assuming &#39;rinsed&#39; is a state similar to &#39;cleaned&#39;). After finding the spoon, the robot needs to move to the location of the spoon to pick it up. Once the spoon is in the robot&#39;s possession, the robot must locate a drawer, move to it, and then open the drawer to place the spoon inside. Finally, the robot should close the drawer to complete the task.&quot;,
+
+&quot;task_sequence&quot;: [
+    &quot;find_object_by_state(spoon, [cleaned])&quot;,
+    &quot;move_to(spoon)&quot;,
+    &quot;pickup_object(spoon)&quot;,
+    &quot;find_object_by_state(drawer, [])&quot;,
+    &quot;move_to(drawer)&quot;,
+    &quot;open_object(drawer)&quot;,
+    &quot;place_object()&quot;,
+    &quot;close_object(drawer)&quot;  
+    ]
+}</code></pre>
+</body>
+</html>

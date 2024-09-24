@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{white},
+    stringstyle=\color{blue},
+    keywordstyle=\color{red},
+    commentstyle=\color{gray},
+    morestring=[b]",
+    morestring=[d]',
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morecomment=[l]{\#},
+    morekeywords={null,false,true}
+}
+\begin{document}
+\section*{Prompt for extracting relationships between HTT sibling tasks}
+Here is a parent task and its child tasks: the parent task is \verb|Task_1| \textit{Perform tasks} and child tasks are 
+\begin{itemize}
+    \item \verb|Task_1.1| \textit{Place kitchen utensils}
+    \item \verb|Task_1.2| \textit{Prepare apple for microwave}
+    \item \verb|Task_1.3| \textit{Clean and rearrange utensils}
+\end{itemize}
+Completing all child tasks is equivalent to completing the parent task.  Please find the temporal relations between child tasks from the task instruction:
+
+\vspace{1em}
+\textit{"First put the clean spatula in the drawer and put a pepper shaker in the kitchen cabinet in any order. After putting the spatula and the pepper shakers, rinse an apple to put it in the microwave. Finally, wash the spoon on the counter and place it on a plate."}
+
+\vspace{1em}
+Please only return the JSON format in the following format:
+
+\begin{lstlisting}[language=json]
+{
+    "parent_task_id": "Task_1",
+    "child_task_condition": "(Please find the temporal relationship between child tasks 
+        ['Task_1.1', 'Task_1.2', 'Task_1.3']. 
+        We assume that each sub task will eventually be completed)",
+}
+\end{lstlisting}
+Examples of temporal relations for \verb|child_task_condition| are: 
+\begin{itemize}
+\item until \texttt{a} finished, \texttt{b} can be done
+\item \texttt{a} and \texttt{b} and \texttt{c} can be done in any order
+\item \texttt{a} and \texttt{b} can be done in any order 
+\item \texttt{a} must done before \texttt{b} 
+\item first \texttt{a}, then \texttt{b}, then \texttt{c}
+\end{itemize}
+where \verb|parent_task_id| denotes the unique task id of the parent task, \verb|child_task_condition| summarizes the temporal relations between subtasks (priorities and dependencies between children). Use and only use task \verb|[Task_1.1]|, \verb|[Task_1.2]|, \verb|[Task_1.3]| as a substitute for task specific content. Please only return JSON for parent task \verb|[Task_1]|. Please pay attention to its subtaks.
+
+\vspace{1em}
+% Please consider carefully and provide the most reasonable answer.
+\tcblower
+\textbf{Possible output from LLM:}
+
+\begin{lstlisting}[language=json]
+{
+    "parent_task_id": "Task_1",
+    "child_task_condition": "first Task_1.1, then Task_1.2, then Task_1.3",
+}
+\end{lstlisting}
+
+\end{document}

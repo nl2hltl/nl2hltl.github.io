@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta name="generator" content="pandoc"/>
+<title></title>
+<style type="text/css">code{white-space:pre}</style>
+</head>
+<body>
+<h1 id="nature-language-to-ltl-formula-via-a-finetuned-llm" class="unnumbered">Nature language to LTL formula via a finetuned LLM</h1>
+<p><strong>Natural language description:</strong></p>
+<p><code>Task_1.1</code> and <code>Task_1.2</code> can be done in any order, <code>Task_1.1</code> and <code>Task_1.2</code> must be completed before <code>Task_1.3</code>, <code>Task_1.3</code> must be completed before <code>Task_1.4</code>.</p>
+<hr/>
+<p><strong>Possible output from the translator:</strong></p>
+<p>Finally <code>Task_1.1</code> And Finally <code>Task_1.2</code> And Finally (<code>Task_1.3</code> And Finally <code>Task_1.4</code>) And (Not <code>Task_1.3</code> Until <code>Task_1.1</code>) And (Not <code>Task_1.3</code> Until <code>Task_1.2</code>)</p>
+</body>
+</html>

@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{subfigure}
+\usepackage{float} 
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{white},
+    stringstyle=\color{blue},
+    keywordstyle=\color{red},
+    commentstyle=\color{gray},
+    morestring=[b]",
+    morestring=[d]',
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morecomment=[l]{\#},
+    morekeywords={null,false,true}
+}
+\begin{document}
+
+\section*{Prompt for LLMs to generate task plan}% \tcblower
+    Given a tabletop scenario with various fruits and vegetables, and colored plates, a robotic arm is tasked to arrange these items according to instructions. The initial coordinates of each fruit, vegetable, and the robotic arm are provided. Using the available information and predefined API functions like \texttt{pickup(object)} and \texttt{place(object, target)}, generate a sequence of commands to effectively arrange each item on the correct colored plate.\\
+    
+    API: 
+    \begin{verbatim}
+    move_to(obj) 
+    pickup(obj) 
+    move_to(plate) 
+    release_obj(plate)
+    \end{verbatim}\\
+    \vspace{1em}
+    
+    Initial coordinates: \\
+    apple: (1, 2) \\
+    banana: (3, 4) \\
+    orange: (5, 6) \\
+    carrot: (7, 8) 
+    \vspace{1em}
+    
+    Task: 
+    Considering the initial coordinates, output a sequence of API calls to complete the task so that the trajectory of the robot arm has the lowest cost. Make sure that that job can be completed with the objects in the environment. Make sure the environment has all the objects and plates that are mentioned in the task. If the task is not possible, please output `Invalid input'. If the task can be planned, just output the sequences of API calls in the following format: 
+    Plan: 1. xxx 2.xxx 
+    \vspace{1em}
+    
+    Example: \\
+    Input: Place the xxx in the aaa plate and the yyy in the bbb plate. \\
+    Output should be like the following:
+    
+    \begin{verbatim}
+    Plan: 
+    1. move_to(xxx)
+    2. pickup(xxx)
+    3. move_to(aaa_plate)
+    4. release_obj(aaa_plate)
+    5. move_to(yyy)
+    6. pickup(yyy)
+    7. move_to(bbb_plate)
+    8. release_obj(bbb_plate)
+    \end{verbatim}
+    
+    Here is the task input:  Place the apple in the red plate and the banana in the yellow plate. 
+    % \tcblower
+    
+\end{document}

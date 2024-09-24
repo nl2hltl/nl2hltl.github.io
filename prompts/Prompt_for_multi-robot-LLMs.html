@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta name="generator" content="pandoc"/>
+<title></title>
+<style type="text/css">code{white-space:pre}</style>
+</head>
+<body>
+<h1 id="prompt-for-llms-to-generate-multi-robot-handover-task-plan" class="unnumbered">Prompt for LLMs to generate multi-robot handover task plan</h1>
+<p>We have arms <span class="math inline"><em>a</em>, <em>b</em>, <em>c</em></span> and <span class="math inline"><em>d</em></span>. The distance between each robotic arm is 1 meter, each robot arm has a motion radius of 0.8 meters that means each arm can only pick and place the object in the regions besides them. Each goal region can only place one object.</p>
+<p>API:</p>
+<pre><code>pick(arm_id, object_i, place_j)
+drop(arm_id, object_i, place_j)
+handover(arm_id_i, amd_id_j)</code></pre>
+<p><br/>
+</p>
+<p>Initial coordinates :</p>
+<p>arm <span class="math inline"><em>a</em></span> at (0, 0),</p>
+<p>arm <span class="math inline"><em>b</em></span> at (0, 1),</p>
+<p>arm <span class="math inline"><em>c</em></span> at (-1, 1),</p>
+<p>arm <span class="math inline"><em>d</em></span> at (-1, 0),</p>
+<p>block <span class="math inline"><em>a</em></span> at region <span class="math inline"><em>E</em></span> (0.2, 0)</p>
+<p>block <span class="math inline"><em>b</em></span> at region <span class="math inline"><em>F</em></span> (0.2, 0.5),</p>
+<p>block <span class="math inline"><em>c</em></span> at region <span class="math inline"><em>G</em></span> (0.2, 1).</p>
+<p>Goal region:</p>
+<p>region <span class="math inline"><em>J</em></span> at (-1.2, 0),</p>
+<p>region <span class="math inline"><em>H</em></span> at (-1.2, 0.5),</p>
+<p>region <span class="math inline"><em>I</em></span> at (-1.2, 1)</p>
+<p>Task: Considering the initial coordinates, output a sequence of API calls to complete the task so that the trajectory of the robot arm has the lowest cost. Make sure that that job can be completed with the objects in the environment. Make sure the environment has all the objects and plates that are mentioned in the task. If the task is not possible, please output ‘Invalid input’. If the task can be planned, just output the sequences of API calls in the following format: Plan: 1. xxx 2.xxx</p>
+<p>Here is the task input: Please place the blue block into region I, the red block into region J, the yellow block into region H. Place the red block before placing the blue block. .</p>
+</body>
+</html>

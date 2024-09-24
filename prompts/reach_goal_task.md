@@ -1,1 +1,0 @@
-Please help me write code that is part of a robot skill for a robot arm to reach a goal position in Cartesian space with collision avoidance. This skill will be used to pick and place objects in a clutterd scene with obstacles. Goal positions will be provided in the `controller_parameters` port.

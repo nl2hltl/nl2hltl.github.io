@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta name="generator" content="pandoc"/>
+<title></title>
+<style type="text/css">code{white-space:pre}</style>
+</head>
+<body>
+<h1 id="an-example-of-generated-hierarchical-ltl-specifications" class="unnumbered">An example of generated hierarchical LTL specifications</h1>
+<p><strong>Task instructions:</strong></p>
+<p><em>First Put the clean spatula in the drawer and put a pepper shaker in the kitchen cabinet in any order. After putting the spatula and the pepper shakers, rinse an apple to put it in the microwave. Finally, wash the spoon on the counter and place it on a plate.</em></p>
+<hr/>
+<p><strong>HTT:</strong></p>
+<ol>
+<li><p><span><code>p0</code></span> Perform tasks</p>
+<ol>
+<li><p><span><code>p101</code></span> Place kitchen utensils</p>
+<ol>
+<li><p><span><code>p104</code></span> Put the clean spatula in the drawer</p></li>
+<li><p><span><code>p105</code></span> put a pepper shaker in the kitchen cabinet</p></li>
+</ol></li>
+<li><p><span><code>p102</code></span> Prepare apple for microwave</p>
+<ol>
+<li><p><span><code>p106</code></span> Rinse an apple and put the rinsed apple in the microwave</p></li>
+</ol></li>
+<li><p><span><code>p103</code></span> Clean and rearrange utensils</p>
+<ol>
+<li><p><span><code>p107</code></span> Wash the spoon on the counter and place the washed spoon on a plate</p></li>
+</ol></li>
+</ol></li>
+</ol>
+<hr/>
+<p><strong>Possible output from LLM:</strong></p>
+<pre language="json"><code>    [
+        {
+            &quot;p0&quot;:&quot;&lt;&gt; ( p101 &amp;&amp; ( &lt;&gt; ( p102 &amp;&amp; &lt;&gt; p103 ) ) )&quot;
+        },
+        {
+            &quot;p101&quot;:&quot;( &lt;&gt; p104 ) &amp;&amp; ( &lt;&gt; p105 )&quot;,
+            &quot;p102&quot;:&quot;&lt;&gt; p106&quot;,
+            &quot;p103&quot;:&quot;&lt;&gt; p107&quot;
+        },
+        {
+            &quot;p104&quot;:&quot;&lt;&gt; ( p108 &amp;&amp; &lt;&gt; p109 )&quot;,
+            &quot;p105&quot;:&quot;&lt;&gt; ( p110 &amp;&amp; &lt;&gt; p111 )&quot;,
+            &quot;p106&quot;:&quot;&lt;&gt; ( p112 &amp;&amp; &lt;&gt; ( p113 &amp;&amp; &lt;&gt; p114 ) )&quot;,
+            &quot;p107&quot;:&quot;&lt;&gt; ( p115 &amp;&amp; &lt;&gt; ( p116 &amp;&amp; &lt;&gt; p117 ) )&quot;
+        },
+        {
+            &quot;p108&quot;:[
+                &quot;find_object_by_state(spatula, [&#39;cleaned&#39;])&quot;,
+                &quot;move_to(spatula)&quot;,
+                &quot;pickup_object(spatula)&quot;
+                ], 
+            &quot;p109&quot;:[
+                &quot;move_to(drawer)&quot;,
+                &quot;open_object(drawer)&quot;,
+                &quot;place_object(spatula, drawer)&quot;,
+                &quot;close_object(drawer)&quot;
+                ],
+            &quot;p110&quot;:[
+                &quot;find_object_by_state(pepper_shaker, [])&quot;,
+                &quot;move_to(pepper_shaker)&quot;,
+                &quot;pickup_object(pepper_shaker)&quot;
+                ],
+            &quot;p111&quot;:[
+                &quot;find_object_by_state(cabinet, [])&quot;,
+                &quot;move_to(cabinet)&quot;,
+                &quot;place_object(peppershaker, cabinet)&quot;
+                ],
+            &quot;p112&quot;:[
+                &quot;find_object_by_state(apple, [])&quot;,
+                &quot;move_to(apple)&quot;,
+                &quot;pickup_object(apple)&quot;
+                ],
+            &quot;p113&quot;:[
+                &quot;find_object_by_state(sink, [])&quot;,
+                &quot;move_to(sink)&quot;,
+                &quot;place_object(apple, sink)&quot;,
+                &quot;find_object_by_state(apple, [rinsed])&quot;,
+                &quot;pickup_object(apple)&quot;
+                ],
+            &quot;p114&quot;:[
+                &quot;find_object_by_state(microwave, [])&quot;,
+                &quot;move_to(microwave)&quot;,
+                &quot;open_object(microwave)&quot;,
+                &quot;place_object(apple)&quot;,
+                &quot;close_object(microwave)&quot;
+                ],
+            &quot;p115&quot;:[
+                &quot;find_object_by_state(spoon, [])&quot;,
+                &quot;move_to(spoon)&quot;,
+                &quot;pickup_object(spoon)&quot;
+                ],
+            &quot;p116&quot;:[
+                &quot;find_object_by_state(sink, [])&quot;,
+                &quot;move_to(sink)&quot;,
+                &quot;place_object(spoon, sink)&quot;,
+                &quot;pickup_object(spoon)&quot;
+                ],
+            &quot;p117&quot;:[
+                &quot;find_object_by_state(plate, [])&quot;,
+                &quot;move_to(plate)&quot;,
+                &quot;place_object(apple,plate)&quot;
+                ]
+        }
+    ]
+    </code></pre>
+</body>
+</html>

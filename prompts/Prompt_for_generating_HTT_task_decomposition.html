@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta name="generator" content="pandoc"/>
+<title></title>
+<style type="text/css">code{white-space:pre}</style>
+</head>
+<body>
+<h1 id="prompt-for-generating-htt-task-decomposition" class="unnumbered">Prompt for generating HTT task decomposition</h1>
+<p>When given instructions to finish some tasks, human tend to reason in a hierarchical manner. Please decompose the natural language task description into a hierarchical structure based on tasks logical relationships. Be sure to expand pronouns [e.g., it, them, they] to refer to specific objects, in order to resolve ambiguity.</p>
+<p><strong>Example [short description]:</strong></p>
+<p>Task: <em>“Turn on the stove to heat potato, and chill a sliced pear while the potatoes are heating”</em></p>
+<ol>
+<li><p>Arrange things</p>
+<ol>
+<li><p>Fetch a potato, place the potato on the stove, then turn on the stove [Note: Operations on the same object (potato here) cannot be split into two subtasks]</p></li>
+<li><p>fetch a pear, sliced the pear, then place the pear in the fridge</p></li>
+</ol></li>
+</ol>
+<p><strong>Example [short description]:</strong></p>
+<p>Task: <em>“Put a towel on the toilet, after putting the towel, get a pot and put it into the fridge.”</em></p>
+<ol>
+<li><p>Arrange things</p>
+<ol>
+<li><p>Put a towel on the toilet</p></li>
+<li><p>Get a pot and put it into the fridge</p></li>
+</ol></li>
+</ol>
+<p><strong>Example [long description]:</strong></p>
+<p><em>“First put a black block into the red box, then put a yellow block into the red box. After putting things to red box, you can start to putting toys into the green box (they can be done in any order): put toy bears on the table; dress the doll up before put it into the box. you can put clothes into the blue box in any time, but you need to place all skirts and pants into the blue box before putting in sock into the blue box. eventually, you should pile the red, green, blue box on the table, pile three box can be done in any order”,</em></p>
+<ol>
+<li><p>Sort things</p>
+<ol>
+<li><p>Place objects into different box</p>
+<ol>
+<li><p>Place blocks into red boxes</p>
+<ol>
+<li><p>Put the a black block into the red box</p></li>
+<li><p>Put the a yellow block into the yellow box</p></li>
+</ol></li>
+<li><p>move toys into green box</p>
+<ol>
+<li><p>Put toy bears into the green box</p></li>
+<li><p>Dress up the dolls and lays dolls in the green box</p></li>
+</ol></li>
+<li><p>Move clothes into blue box</p>
+<ol>
+<li><p>Place skirt into the blue box</p></li>
+<li><p>Place pant into the blue box</p></li>
+<li><p>Putt sock into the blue box</p></li>
+</ol></li>
+</ol></li>
+<li><p>Pile the red, green, blue box</p>
+<ol>
+<li><p>Place red box on the left</p></li>
+<li><p>Place green box in the middle</p></li>
+<li><p>Move blue box on the right</p></li>
+</ol></li>
+</ol></li>
+</ol>
+<p>According to the principle:</p>
+<p><strong>Example</strong> [tasks can be done in any order should be placed under the same parent task]:</p>
+<p>task: “At any time do <code>[task a]</code>. Mean while, <code>[task b]</code> can be done. After <code>[task a and b]</code>, do <code>[task c]</code>.”</p>
+<ol>
+<li><p>Arrange things</p>
+<ol>
+<li><p>summary of <code>[task a]</code> and <code>[task b]</code></p>
+<ol>
+<li><p><code>[task a]</code></p></li>
+<li><p><code>[task b]</code></p></li>
+</ol></li>
+<li><p><code>[task c]</code></p></li>
+</ol></li>
+</ol>
+<p>Because <code>[task a]</code> and <code>[task b]</code> can be done in any order.</p>
+<p><strong>Example</strong> [tasks should be executed in sequential should be placed under the same parent task]:</p>
+<p>Task : “do <code>[task a]</code> at any time. at any time, do <code>[task b]</code>. After <code>[task a]</code> finished, do <code>[task c]</code>.”</p>
+<ol>
+<li><p>root task</p>
+<ol>
+<li><p>summary of <code>[task a]</code> and <code>[task c]</code></p>
+<ol>
+<li><p><code>[task a]</code></p></li>
+<li><p><code>[task c]</code></p></li>
+</ol></li>
+<li><p><code>[task b]</code></p></li>
+</ol></li>
+</ol>
+<p>Because <code>[task a]</code> and <code>[task c]</code> should be done in sequence</p>
+<p>The requirements for task decomposition are that:</p>
+<ol>
+<li><p>Ensure that each parent task has at most 3 child tasks, which means you can increase the depth of the hierarchical structure to make it narrower per level.</p></li>
+<li><p>You do not need to write out the temporal constraints in this step, but when dividing levels, please try to consider tasks relationships.</p></li>
+<li><p>Directly output the hierarchical task representation without any other texts.</p></li>
+<li><p>Please keep the root of the task tree as “1.”</p></li>
+</ol>
+<p><strong>Below is a new task:</strong> <span>(AI2-THOR task provided by humans)</span> <em>First Put the clean spatula in the drawer and put a pepper shaker in the kitchen cabinet in any order. After putting the spatula and the pepper shakers, rinse an apple to put it in the microwave. Finally, wash the spoon on the counter and place it on a plate.</em></p>
+<p><strong>Below is a new task:</strong> <span>(Real-world experiment provided by humans)</span> <em>First place the green apple and an orange into a yellow plate in any order. After that, place the carrot and the red apple into a blue plate in any order, too.</em></p>
+<hr/>
+<p><strong>Possible output from LLM:</strong></p>
+<p><span>(For AI2-THOR provided by humans)</span></p>
+<ol>
+<li><p>Perform tasks</p>
+<ol>
+<li><p>Place kitchen utensils</p>
+<ol>
+<li><p>Put the clean spatula in the drawer</p></li>
+<li><p>put a pepper shaker in the kitchen cabinet</p></li>
+</ol></li>
+<li><p>Prepare apple for microwave</p>
+<ol>
+<li><p>Rinse an apple and put the rinsed apple in the microwave</p></li>
+</ol></li>
+<li><p>Clean and rearrange utensils</p>
+<ol>
+<li><p>Wash the spoon on the counter and place the washed spoon on a plate</p></li>
+</ol></li>
+</ol></li>
+</ol>
+<ol>
+<li><p>Place fruits into plates</p>
+<ol>
+<li><p>Place green apple and orange into yellow plate in any order</p>
+<ol>
+<li><p>Place green apple into yellow plate</p></li>
+<li><p>Place orange into yellow plate</p></li>
+</ol></li>
+<li><p>Place carrot and red apple into blue plate in any order</p>
+<ol>
+<li><p>Place carrot into blue plate</p></li>
+<li><p>Place red apple into blue plate</p></li>
+</ol></li>
+</ol></li>
+</ol>
+</body>
+</html>

@@ -1,0 +1,136 @@
+\documentclass{article}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{subfigure}
+\usepackage{float} 
+\usepackage{amssymb,graphicx}
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{white},
+    stringstyle=\color{blue},
+    keywordstyle=\color{red},
+    commentstyle=\color{gray},
+    morestring=[b]",
+    morestring=[d]',
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morecomment=[l]{\#},
+    morekeywords={null,false,true}
+}
+\begin{document}
+
+\section*{An example of generated hierarchical LTL specifications}
+    \textbf{Task instructions:} 
+    
+    \textit{First Put the clean spatula in the drawer and put a pepper shaker in the kitchen cabinet in any order. After putting the spatula and the pepper shakers, rinse an apple to put it in the microwave. Finally, wash the spoon on the counter and place it on a plate.}
+    
+\noindent\rule{16cm}{0.4pt}
+
+    \textbf{HTT:} 
+    \begin{enumerate}
+    \item  {\color{blue}\verb|p0|} Perform tasks
+    \begin{enumerate}
+        \item {\color{blue}\verb|p101|} Place kitchen utensils 
+        \begin{enumerate}
+            \item {\color{blue}\verb|p104|} Put the clean spatula in the drawer 
+            \item {\color{blue}\verb|p105|} put a pepper shaker in the kitchen cabinet 
+        \end{enumerate}
+        \item {\color{blue}\verb|p102|} Prepare apple for microwave 
+        \begin{enumerate}
+            \item {\color{blue}\verb|p106|} Rinse an apple and put the rinsed apple in the microwave 
+        \end{enumerate}
+        \item {\color{blue}\verb|p103|} Clean and rearrange utensils 
+        \begin{enumerate}
+            \item {\color{blue}\verb|p107|} Wash the spoon on the counter and place the washed spoon on a plate
+        \end{enumerate}
+    \end{enumerate}
+    \end{enumerate}
+    
+\noindent\rule{16cm}{0.4pt}
+
+    \textbf{Possible output from LLM:}
+    \begin{lstlisting}[language=json]
+    [
+        {
+            "p0":"<> ( p101 && ( <> ( p102 && <> p103 ) ) )"
+        },
+        {
+            "p101":"( <> p104 ) && ( <> p105 )",
+            "p102":"<> p106",
+            "p103":"<> p107"
+        },
+        {
+            "p104":"<> ( p108 && <> p109 )",
+            "p105":"<> ( p110 && <> p111 )",
+            "p106":"<> ( p112 && <> ( p113 && <> p114 ) )",
+            "p107":"<> ( p115 && <> ( p116 && <> p117 ) )"
+        },
+        {
+            "p108":[
+                "find_object_by_state(spatula, ['cleaned'])",
+                "move_to(spatula)",
+                "pickup_object(spatula)"
+                ], 
+            "p109":[
+                "move_to(drawer)",
+                "open_object(drawer)",
+                "place_object(spatula, drawer)",
+                "close_object(drawer)"
+                ],
+            "p110":[
+                "find_object_by_state(pepper_shaker, [])",
+                "move_to(pepper_shaker)",
+                "pickup_object(pepper_shaker)"
+                ],
+            "p111":[
+                "find_object_by_state(cabinet, [])",
+                "move_to(cabinet)",
+                "place_object(peppershaker, cabinet)"
+                ],
+            "p112":[
+                "find_object_by_state(apple, [])",
+                "move_to(apple)",
+                "pickup_object(apple)"
+                ],
+            "p113":[
+                "find_object_by_state(sink, [])",
+                "move_to(sink)",
+                "place_object(apple, sink)",
+                "find_object_by_state(apple, [rinsed])",
+                "pickup_object(apple)"
+                ],
+            "p114":[
+                "find_object_by_state(microwave, [])",
+                "move_to(microwave)",
+                "open_object(microwave)",
+                "place_object(apple)",
+                "close_object(microwave)"
+                ],
+            "p115":[
+                "find_object_by_state(spoon, [])",
+                "move_to(spoon)",
+                "pickup_object(spoon)"
+                ],
+            "p116":[
+                "find_object_by_state(sink, [])",
+                "move_to(sink)",
+                "place_object(spoon, sink)",
+                "pickup_object(spoon)"
+                ],
+            "p117":[
+                "find_object_by_state(plate, [])",
+                "move_to(plate)",
+                "place_object(apple,plate)"
+                ]
+        }
+    ]
+    \end{lstlisting}
+    
+\end{document}
