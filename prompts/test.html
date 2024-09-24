@@ -18,8 +18,17 @@ body { box-sizing: border-box;
 <body>
   <div id="$m" class="markdown-body"></div>
   <textarea id="$t" style="display:none">
-# Hello World
-*Write* `your` **Markdown** here.
+
+
+    A collection of representative tasks along with their rephrasings.
+
+    | 1    | Simultaneously place the green apple in the blue plate and the orange in the yellow plate. | 1    |
+    | ---- | ------------------------------------------------------------ | ---- |
+    |      | 1. Put the green apple to the blue plate and the orange to the yellow plate. The order does not matter. | 2    |
+    |      | 2. Please put the green apple into the blue plate and orange into the yellow plate in any order. | 3    |
+    |      | 3. Please place the green apple in the blue plate and the orange in the yellow plate at the same time. | 4    |
+    |      | 4. You can put the green apple in to the blue plate and the orange into the yellow plate in any order. | 5    |
+    
   </textarea>
   <script>$m.innerHTML = marked.parse($t.value);</script>
 </body>

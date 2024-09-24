@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{subfigure}
+\usepackage{float} 
+\usepackage{enumitem}
+\usepackage{booktabs} 
+\usepackage{multirow}
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{white},
+    stringstyle=\color{blue},
+    keywordstyle=\color{red},
+    commentstyle=\color{gray},
+    morestring=[b]",
+    morestring=[d]',
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morecomment=[l]{\#},
+    morekeywords={null,false,true}
+}
+\begin{document}
+\begin{table*}[!tbh]
+    \centering
+    \begin{tabular}{cp{14cm}}
+    \toprule
+    task ID & { task description and paraphrases} \\
+    \hline
+       % \multirow{4}{7cm}{First place the red apple, then the green apple, and finally the orange onto the yellow plate.}  & 1. Put red apple, the green apple and the orange into the red plate.\\
+       % & 2. I would you to move the red apple, then the green apple and lastly orange to the yellow plate.\\
+       % & 3. Please put the red apple, green apple, and orange onto the yellow plate in this order.\\
+       % & 4. Sequentially, firstly put red apple into a yellow plate , and then put green apple into a yellow plate , and finally put the orange into a yellow plate\\
+       % \hline
+         
+5.1 &  Simultaneously place the green apple in the blue plate and the orange in the yellow plate. \\
+5.2 & Put the green apple to the blue plate and the orange to the yellow plate. The order does not matter.\\
+5.3 & Please put the green apple into the blue plate and orange into the yellow plate in any order.\\
+5.4 & Please place the green apple in the blue plate and the orange in the yellow plate at the same time.\\
+5.5& You can put the green apple in to the blue plate and the orange into the yellow plate in any order.\\
+       \hline
+ 6.1 & Place the green apple in the pink plate, the orange in the yellow plate and the red apple in the blue plate. The order of placement is not specified and can be chosen freely. \\
+ 6.2 & Put the green apple to the pink plate, the orange to the yellow plate and the red apple to the blue plate in any order.\\
+ 6.3 & Please put the green apple in the pick plate, the orange in the yellow plate and red apple int he blue plate. I do not care about the order.\\
+ 6.4 & Please place the green apple in the pink plate, the orange in the yellow plate, and the red apple in the blue plate. In any order you prefer.\\
+6.5 &  place the green apple into the pink plate b. put the orange into the yellow plate c. put the red apple in the blue plate. a and b and c can be done in any order \\
+       \hline
+7.1 &  Place the carrot in the blue plate, the orange in the yellow plate, the green apple in the green plate, and the red apple in the pink plate in any order. \\
+7.2 & Put the carrot to the blue plate the orange to the yellow plate the green apple to the green plate and the red apple to the pink plate in the best order.\\
+7.3 & I want the carrot to be in the blue plate, the orange in the yellow plate, the green apple in the green plate. The order is not important.\\
+7.4 & Place the carrot in the blue plate, the orange in the yellow plate, the green apple in the green plate, and the red apple in the pink plate. You can decide the order freely. \\
+7.5 & Place the carrot in the blue plate in any order, the orange in the yellow plate in any order, the green apple in the green plate in any order, and the red apple in the pink plate in any order. all the tasks should be finished in the end\\
+       \hline
+8.1 & Begin by placing the green apple and orange in the yellow plate in any order. Once done, place the carrot and red apple in the blue plate also in any order. \\
+8.2 & First put the green apple and the orange to the yellow plate, and then put the place the carrot and the red apple to the blue plate in the best order.\\
+8.3 &Start placing the green apple and orange in the yellow plate in any order. After that, then put the carrot and red apple in the blue plate in any order.\\
+8.4 & Please place place the green apple and orange in the yellow plate in any order. Then place the carrot and red apple in the blue plate in any order.\\
+8.5 & First place the green apple and an orange into a yellow plate in any order. after that, place the carrot and the red apple into a blue plate in any order, too. \\
+         \bottomrule
+    \end{tabular}
+    \caption{A collection of representative tasks along with their rephrasings.}
+    \label{tab:real-world-rephrase}
+\end{table*}
+
+
+\end{document}
