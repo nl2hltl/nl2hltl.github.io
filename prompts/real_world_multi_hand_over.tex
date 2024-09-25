@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{subfigure}
+\usepackage{float} 
+\usepackage{enumitem}
+\usepackage{booktabs} 
+\usepackage{multirow}
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{white},
+    stringstyle=\color{blue},
+    keywordstyle=\color{red},
+    commentstyle=\color{gray},
+    morestring=[b]",
+    morestring=[d]',
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morecomment=[l]{\#},
+    morekeywords={null,false,true}
+}
+\begin{document}
+
+\begin{table*}[!t]
+    \centering\footnotesize
+    \setlength{\tabcolsep}{3pt} % default is usually 6pt
+\begin{tabular}{ll}
+         % \bhline
+task ID & Task Description\\ 
+1 & Transfer three blocks into the opposite. The red block should be placed before the blue block. \\
+2 & Put the three blocks into three goal region at region H at, region I and region J each goal region can only be placed with one object. \\
+3 & Please plan a solution to move the three pillars to the placement area (region E, F, G) to the side of the arm a and arm b. Each object cannot be placed on the area other than the target region. \\
+4 & Transfer three blocks into the opposite regions. The robot arm cannot touch blue block until any of the robot arm touched the red block. After all of these, you should place yellow block back to region G (where the red block is currently locating. \\
+5 & The red block should be placed before the blue block. Please exchange the position of the red block and blue block. At any time, put the yellow block into the opposite side. \\
+6 & The red block should be placed before the blue block.  Please place the three objects separately to region G, H and I. \\
+7 & The red block should be placed before the blue block. Please place the three objects one after another to region I, no objects can be placed on region F, G and H during this period. \\
+8 & Please first place the yellow block to region I, then place the yellow block to region G, and move the other two blocks (red and blue) to any empty region at any time. \\
+       % \bhline
+\end{tabular}
+    \caption{Task description for multi-robot handover experiments.}
+    \label{tab:tableset}
+    \vspace{-10pt}
+\end{table*}
+
+
+\end{document}
