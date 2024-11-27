@@ -148,7 +148,11 @@
                     <h2 class="title is-3">Abstract</h2>
                     <div class="content has-text-justified">
                         <p>
-                            Long-horizon planning in robotics is often hindered by challenges such as uncertainty
+                            To allow non-experts to easily specify long-horizon, multi-robot collaborative tasks, researchers are increasingly using language models to translate human natural language commands into formal specifications. However,
+because translation can occur in multiple ways, these specifications may not always be accurate nor result in efficient downstream multi-robot planning. Our core insight is that specifications should be concise representations, making it easier for downstream planners to find optimal solutions while remaining straightforward to derive from human instructions. Given the superior performance of multi-robot planners with hierarchical specifications, we represent tasks using hierarchical structures and introduce a full pipeline that translates natural language commands into hierarchical Linear Temporal Logic (LTL) and then solves the corresponding planning problem.
+The translation happens in two steps with the help of Large Language Models (LLMs).  
+Initially, an LLM transforms the instructions into a hierarchical representation defined as Hierarchical Task Tree, capturing the logical and temporal relations among tasks. Following this, a fine-tuned LLM translates sub-tasks of each task into flat LTL formulas, aggregating them to form hierarchical LTL specifications. These specifications are then leveraged for planning using off-the-shelf planners. Our framework showcases the potential of the LLM in harnessing hierarchical reasoning to automate multi-robot task planning. Through evaluations in both simulation and real-world experiments involving human participants, we demonstrate that our method can handle more complex instructions compared to existing methods. Moreover, the results indicate that our approach achieves higher success rates and lower costs in multi-robot task allocation and plan generation.
+                            <!-- Long-horizon planning in robotics is often hindered by challenges such as uncertainty
                             accumulation, computational complexity, delayed rewards and incomplete information.
                             This work proposes an innovative approach to exploit the inherent task hierarchy from human
                             instructions to facilitate multi-robot planning.
@@ -172,7 +176,7 @@
                             complex human
                             instructions compared to existing methods. The results indicate that our approach achieves
                             higher success
-                            rates and lower costs in multi-robot task allocation and plan generation.
+                            rates and lower costs in multi-robot task allocation and plan generation. -->
                         </p>
                     </div>
                 </div>
